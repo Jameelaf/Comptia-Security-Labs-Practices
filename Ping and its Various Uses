@@ -21,8 +21,108 @@ To begin, open a terminal window. Then, type the following:
 ping google.com
 
 
+The ping command will continue to send ICMP packages to the destinated IP address until it receives an interruption. To stop the command, just hit the Ctrl + C key combination.
+
+#1 Hostname
+#2 IP address of target
+#3 reverese DNS name of target IP address
+#4 No of data bytes
+#5 ICMP sequence numbers
+#6 TTL - Time to Live values
+#7 Ping time measured in milliseconds
+#8 Statistics display including percentage packet loss
+#9 RTT (Round-Trip Time)
+
+Reasons for Duplicate Responses
+Network Redundancy:
+Some networks use redundant paths to ensure reliability. 
+If there are multiple routes between your machine and the destination, 
+you might receive the same response from different paths.
+
+Load Balancing:
+Large services like Google often use load balancing across multiple servers. 
+Sometimes, the same request might be handled by different servers, 
+leading to duplicate responses.
+
+Example of What’s Happening
+Imagine you send a ping request to Google, and it’s routed through several paths:
+
+Path A: Your ping request travels along Path A and reaches Google.
+Path B: Simultaneously, the request might also travel along Path B due to network redundancy.
 
 
+Task 2:
+We can set the packet size using the following commands:
+ping -s 100 localhost 
+ping -s 100 google.com
+
+
+Some targets respond to ping packets while some of them just drop. 
+
+This is useful when testing a system to see how it will respond differently 
+to very small or very large packets. The default packet size of ping is 56.
+
+
+Task 3:
+By default, ping will continue to send packages until it 
+receives an interrupt signal. To specify the number of echo request packages to be 
+sent after pings exit:
+ping -c 5 cisco.com
+
+Task 4:
+When you run the ping command, it will use either IPv4 or IPv6,depending on your machine’s DNS settings.
+
+To force ping to use IPv4, pass the -4 option, or use its alias:ping4. 
+ping -4 localhost 
+
+To force ping to use IPv6, pass the -6 option, or use its alias:ping6;
+ping -6 localhost
+
+To send 5 packets which “will not fragment the flag (IPv4 only)” 
+pass “-M dont” option with the following command:
+ping -M dont localhost -4 -c 5
+
+What Does "Will Not Fragment the Flag" Mean?
+Fragmentation: In IP networking, fragmentation occurs when a packet is larger than the 
+Maximum Transmission Unit (MTU) of a network segment. 
+The packet is broken down into smaller pieces (fragments) that can 
+fit within the MTU of each segment along the path.
+
+DF (Don't Fragment) Flag: When the DF flag is set in the IP header, 
+it instructs routers along the path not to fragment the packet. 
+If a router encounters a network segment with an MTU smaller than the packet size,
+it will drop the packet and send an ICMP "Fragmentation Needed" message back to the sender. 
+This flag is useful for testing and ensuring that packets are sent at a size that 
+will fit through the network without fragmentation.
+
+
+Task 5:
+In some cases, it may be necessary to wait a certain amount of time 
+between sending each packet. 
+The default is to wait about one second between each packet, 
+or not to wait in flood mode. 
+Unpriviledged users may set an interval to 0.2 seconds and above.
+Send 20 ping packages within 0.2 ms interval to target system: 
+ping -4n -c20 127.0.0.1 -i 0.2
+
+Explanation:
+ping: The command used to send ICMP Echo Request packets to a network host.
+-4: This forces the use of IPv4 addresses.
+-n: This option tells ping to show numeric IP addresses instead of resolving hostnames.
+-c20: This option specifies that 20 packets should be sent.
+127.0.0.1: This is the target address, which in this case is the local machine (loopback address).
+-i 0.2: This sets the interval between sending each packet to 0.2 seconds
+
+
+
+Task 6:
+In flood ping; for every ECHO REQUEST sent a period ‘’.’’ is printed, while for every ECHO REPLY received, the last printed period “.” is removed.
+This provides a rapid display of how many packets are being dropped. If interval is not given, it sets interval to zero and outputs packets as fast as they come back or one hundred times per second, whichever is more. Only the super-user may use this option with a zero interval.
+As a root user, flood target system with sending 30 ping packages. Choose your local router or Access Point as target system. Run this command:
+
+ping -4n -c30 192.168.1.1 -f
+
+ping -4n -c30 192.168.1.1 -f -i 0.050
 
 
 
