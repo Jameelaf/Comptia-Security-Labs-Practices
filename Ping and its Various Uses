@@ -1,0 +1,36 @@
+Ping and Its Various Uses
+
+Lab Objective:
+Learn how to use ping and its different parameters.
+
+Lab Purpose:
+Ping is a simple and useful network-based utility which can be used to identify if a host is alive or dead. Technically, we can call it an echo reply. By “alive”, I mean that the host is active, and by “dead”, that the host is in shutdown mode. Anything which has a network card can be a host: computers, servers, switches, websites, smartphones, IOT devices, etc.
+It is often useful when setting up some new infrastructure to use ping to test if your infrastructure can correctly reach the network.
+
+Lab Tool:
+Kali Linux or Windows
+
+Lab Topology:
+You can use Kali Linux for this lab.
+
+Lab Walkthrough:
+
+Task 1:
+Ping works on both Kali linux and Windows. For this lab, we will be demonstrating ping on Kali Linux VM machine. 
+To begin, open a terminal window. Then, type the following:
+ping google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
