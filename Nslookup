@@ -1,0 +1,62 @@
+Nslookup
+
+Learn how to use Nslookup to gather DNS information on a target site.
+
+Lab Purpose:
+Nslookup is a network administration command-line tool used for querying the DNS to obtain domain name or IP address mapping information.
+
+Lab Tool:
+Windows Machine or Kali Linux.
+
+Lab Topology:
+You can use a Windows Machine or Kali Linux for this lab. (I'm using Kali Linux)
+
+Lab Walkthrough:
+Task 1:
+
+Nslookup comes built in on both Windows and Linux. In Windows, it comes in both an interactive and non-interactive mode. To open the interactive mode, type “nslookup”. To quit the interactive mode, type “quit”.
+We will begin by finding the IP address of a host. To do this, type the following:
+nslookup www.google.com
+
+
+
+
+Task 2:
+We will now perform a reverse lookup which will match an IP address to a domain name. 
+This is also called the DNS PTR record, and can be thought of as the exact opposite of the DNS A record. 
+To do this type:
+nslookup 74.125.193.99
+
+A Record: Forward mapping from domain name to IP address.
+PTR Record: Reverse mapping from IP address to domain name.
+
+
+Oftentimes, we can see that hostnames DNS A and DNS PTR queries do not match on web servers. This is because multiple IP addresses may be matched against a DNS A record to perform load balancing.
+
+
+
+Task 3:
+We can also find any “Mail eXchange” servers for a particular domain. To do this, type:
+nslookup -querytype=mx google.com
+
+It is shown with priority (10, 20, 30, 40). 
+Lower numbers indicate higher priority. 
+If an email cannot be delivered to a higher priority server, the next in line is tried. Here there is only one mail server present. 
+
+
+
+
+Task 4:
+We can also find the “Name Servers” responsible for a domain. In other words, only those servers which are authoritative sources to keep DNS records of the google.com domain name. To do this, first open an interactive console by typing “nslookup”. Then, type:
+set query=ns
+
+Then, type the domain name into the terminal.
+
+
+
+
+Task 5:
+It is possible to access domain verification data by making a DNS TXT query.
+nslookup -querytype=txt google.com
+
+ 
